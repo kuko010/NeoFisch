@@ -14,6 +14,14 @@ modSettings {
     }
 }
 
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
+
 tasks.processResources {
     if (mod.isNeoforge) {
         val props = mapOf(
@@ -30,6 +38,13 @@ tasks.processResources {
         filesMatching("META-INF/neoforge.mods.toml") {
             expand(props)
         }
+    }
+}
+
+repositories {
+    maven {
+        name = "ParchmentMC"
+        url = uri("https://maven.parchmentmc.org")
     }
 }
 
