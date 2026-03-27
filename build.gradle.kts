@@ -10,6 +10,7 @@ modSettings {
         guiScale = 3
         narrator = false
         darkBackground = true
+        guiScale = 3
         musicVolume = 0.0
     }
 }
@@ -22,23 +23,6 @@ java {
 }
 
 
-configurations {
-    named("mappings") {
-        dependencies.clear()
-    }
-}
-dependencies {
-    mappings(loom.layered {
-        officialMojangMappings()
-
-        if (mod.minecraftVersion == "1.20.1") {
-            parchment("org.parchmentmc.data:parchment-${mod.minecraftVersion}:2023.09.03@zip")
-        }
-        if (mod.minecraftVersion == "1.21.1") {
-            parchment("org.parchmentmc.data:parchment-${mod.minecraftVersion}:2024.11.17@zip")
-        }
-    })
-}
 
 tasks.processResources {
     if (mod.isNeoforge) {
@@ -59,11 +43,34 @@ tasks.processResources {
     }
 }
 
+configurations {
+    named("mappings") {
+        dependencies.clear()
+    }
+}
+
+
 repositories {
+    mavenCentral()
     maven {
         name = "ParchmentMC"
         url = uri("https://maven.parchmentmc.org")
     }
+}
+
+dependencies {
+    mappings(loom.layered {
+        officialMojangMappings()
+        if (mod.minecraftVersion == "1.20.1") { parchment("org.parchmentmc.data:parchment-${mod.minecraftVersion}:2023.09.03@zip") }
+        if (mod.minecraftVersion == "1.21.1") { parchment("org.parchmentmc.data:parchment-${mod.minecraftVersion}:2024.11.17@zip") }
+    })
+
+
+    // This mod has 0 purpose
+    implementation("com.squareup.moshi:moshi:1.15.2")
+    implementation("com.squareup.okio:okio:3.9.0")
+    include("com.squareup.moshi:moshi:1.15.2")
+    include("com.squareup.okio:okio:3.9.0")
 }
 
 
