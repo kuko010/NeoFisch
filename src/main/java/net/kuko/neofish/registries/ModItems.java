@@ -25,7 +25,7 @@ public class ModItems {
      * Abstraction helper with generics
      * @param <T> The specific subtype of Item
      */
-    public static <T extends Item> DeferredItem<T> item(String name, Supplier<T> supplier) {
+    protected static <T extends Item> DeferredItem<T> item(String name, Supplier<T> supplier) {
         /*? if 1.21.1 {*/
         return ITEMS.register(name, supplier);
         /*?}*/
